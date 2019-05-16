@@ -76,9 +76,9 @@ function SearchAppBar (props) {
     <div className={classes.root}>
       <AppBar position='static'>
         <Toolbar>
-          <img className={classes.logo} src={logo} height={50} alt={'Marvel Heros'} />
+          <a href='/'><img className={classes.logo} src={logo} height={50} alt={'Marvel Heros'} /></a>
           <Typography className={classes.title} variant='h6' color='inherit' noWrap style={{marginLeft: '5px'}}>
-            Marvel Heros
+              Marvel Heros
           </Typography>
           <div className={classes.grow} />
           <div className={classes.search}>
@@ -86,7 +86,7 @@ function SearchAppBar (props) {
               <SearchIcon />
             </div>
             <InputBase
-              placeholder='Search…'
+              placeholder='Start With. eg:spider'
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput

@@ -19,6 +19,5 @@ const getSecretParams = () => {
 export const getCharacters = (offset = 0) => {
   let params = getSecretParams()
   let URI = `/characters?offset=${offset * 20}&apikey=${key.publicKey}`
-  console.log(params)
   return api.get(`${URI}&${params}`).then(res => res.data)
 }
