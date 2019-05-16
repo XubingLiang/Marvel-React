@@ -18,6 +18,12 @@ const getSecretParams = () => {
 
 export const getCharacters = (offset = 0) => {
   let params = getSecretParams()
-  let URI = `/characters?offset=${offset * 20}&apikey=${key.publicKey}`
-  return api.get(`${URI}&${params}`).then(res => res.data)
+  let URI = `/characters?offset=${offset * 20}&apikey=${key.publicKey}&${params}`
+  return api.get(URI).then(res => res.data)
+}
+
+export const getCharacterDetail = (heroID) => {
+  let params = getSecretParams()
+  let URI = `/characters/${heroID}?apikey=${key.publicKey}&${params}`
+  return api.get(URI).then(res => res.data)
 }

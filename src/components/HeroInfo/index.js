@@ -19,7 +19,7 @@ const styles = {
 }
 
 function HeroInfo (props) {
-  const { classes, hero } = props
+  const { classes, hero, handleClickOpen } = props
   return (
     <Card className={classes.card}>
       <CardActionArea>
@@ -27,7 +27,7 @@ function HeroInfo (props) {
           <CardMedia
             className={classes.media}
             image={`${hero.thumbnail.path}.${hero.thumbnail.extension}`}
-            title='Contemplative Reptile'
+            title={`${hero.name}`}
           />
         </a>
         <CardContent>
@@ -37,7 +37,7 @@ function HeroInfo (props) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size='small' color='primary'>
+        <Button size='small' color='primary' onClick={() => handleClickOpen(hero.id)}>
           Read More
         </Button>
       </CardActions>
