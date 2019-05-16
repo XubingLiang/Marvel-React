@@ -29,7 +29,6 @@ class Layout extends React.Component {
 
   handleClick = (offset) => {
     this.setState({ isLoading: true });
-    console.log(this.state.searchText)
     this.loadCharacters(offset)
     this.setState({ offset: offset });
   }

@@ -7,6 +7,7 @@ import InputBase from '@material-ui/core/InputBase'
 import { fade } from '@material-ui/core/styles/colorManipulator'
 import { withStyles } from '@material-ui/core/styles'
 import SearchIcon from '@material-ui/icons/Search'
+import Link from '@material-ui/core/Link'
 
 import logo from '../../assets/images/logo.svg'
 
@@ -86,7 +87,7 @@ function SearchAppBar (props) {
               <SearchIcon />
             </div>
             <InputBase
-              placeholder='Start With. eg:spider'
+              placeholder='Start With.eg:Spider(case sensitive)'
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput
