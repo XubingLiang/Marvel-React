@@ -6,7 +6,7 @@ import Pagination from "material-ui-flat-pagination";
 
 import '../../assets/css/content.css'
 import loading from '../../assets/images/loading.svg';
-import { getCharacters, getCharacterDetail } from '../../actions/marvelAPI';
+import { getCharacterDetail } from '../../actions/marvelAPI';
 import HeroInfo from '../HeroInfo'
 import HeroDetailDialog from '../HeroDetailDialog'
 
@@ -26,24 +26,12 @@ const styles = theme => ({
 
 class Content extends React.Component {
   state = {
-    offset: 0,
-    heroList: [],
-    isLoading: true,
     heroDetailOpen: false,
     isLoadingHeroDetail: true,
     selectedHero: {},
   };
 
-  componentDidMount() {
-    this.loadCharacters(this.state.offset)
-  }
 
-  loadCharacters = (offset) => {
-    getCharacters(offset)
-      .then(res => {
-        this.setState({ heroList: res.data.results, isLoading: false })
-      })
-  }
 
   handleClickOpen = (heroID) => {
     this.setState({ heroDetailOpen: true, isLoadingHeroDetail: true });
@@ -60,25 +48,27 @@ class Content extends React.Component {
     this.setState({ heroDetailOpen: false });
   };
 
-  handleClick(offset) {
-    this.setState({ isLoading: true });
-    this.loadCharacters(offset)
-    this.setState({ offset: offset });
-  }
+  handleClickPagination(offset) {
+    this.props.handleClick(offset)
+  };
 
   renderHeroList = (heroList) => {
-    return (heroList.map(hero => (
+    return ( heroList.length === 0 ? <Grid item>No Recod Found</Grid>
+      :(heroList.map(hero => (
       <Grid key={hero.id} item>
         <HeroInfo hero={hero} handleClickOpen={() => this.handleClickOpen(hero.id)}/>
-      </Grid>
+      </Grid>)
     )))
   }
 
   render() {
-    const { classes } = this.props;
     const { 
+      classes, 
+      offset,
       heroList, 
       isLoading, 
+    } = this.props;
+    const { 
       heroDetailOpen,
       isLoadingHeroDetail,
       selectedHero
@@ -92,18 +82,22 @@ class Content extends React.Component {
           selectedHero = {selectedHero}
         />
         { isLoading ? <img src={loading} alt={'Loading...'} className='loading'/> :
-          <Grid container className={classes.root} justify="center" spacing={16}>
-            {this.renderHeroList(heroList)}
-            <div className='pagination'>
-              <Pagination
-                limit={1}
-                size={'large'}
-                offset={this.state.offset}
-                total={75}
-                onClick={(e, offset) => this.handleClick(offset)}
-              />
-            </div>
-          </Grid>
+          <div>
+            <Grid container className={classes.root} justify="center" spacing={16}>
+              {this.renderHeroList(heroList)}
+            </Grid>
+            { heroList.length < 20 && offset === 0 ? null :
+             <div className='paginate'>
+                <Pagination
+                  limit={1}
+                  size={'large'}
+                  offset={offset}
+                  total={75}
+                  onClick={(e, offset) => this.handleClickPagination(offset)}
+                />
+              </div>
+            }
+          </div>
         }
       </div>
     );

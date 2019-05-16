@@ -71,7 +71,7 @@ const styles = theme => ({
 })
 
 function SearchAppBar (props) {
-  const { classes } = props
+  const { classes, handleChangeFilter, handleKeyPress } = props
   return (
     <div className={classes.root}>
       <AppBar position='static'>
@@ -91,6 +91,8 @@ function SearchAppBar (props) {
                 root: classes.inputRoot,
                 input: classes.inputInput
               }}
+              onChange={handleChangeFilter}
+              onKeyPress={handleKeyPress}
             />
           </div>
         </Toolbar>

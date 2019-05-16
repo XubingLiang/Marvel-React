@@ -2,7 +2,8 @@
   margin: 20px 3px 20px 3px;
 }
 
-.pagination {
+.paginate {
+  display: block;
   text-align: center; 
   width: 100%;
 }

@@ -16,9 +16,12 @@ const getSecretParams = () => {
   return `ts=${timestamp}&hash=${hash}`
 }
 
-export const getCharacters = (offset = 0) => {
+export const getCharacters = (offset = 0, searchText = '') => {
   let params = getSecretParams()
   let URI = `/characters?offset=${offset * 20}&apikey=${key.publicKey}&${params}`
+  if (searchText) {
+    URI = `${URI}&nameStartsWith=${searchText}`
+  }
   return api.get(URI).then(res => res.data)
 }
 

@@ -32,7 +32,7 @@ function HeroInfo (props) {
         </a>
         <CardContent>
           <Typography gutterBottom variant='h5' component='h2'>
-            {hero.name}
+            {hero.name.length > 20 ? `${hero.name.substring(0, 20)}...` : hero.name}
           </Typography>
         </CardContent>
       </CardActionArea>
