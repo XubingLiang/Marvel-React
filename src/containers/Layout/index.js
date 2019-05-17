@@ -1,36 +1,36 @@
 import React from 'react'
+import {
+  HashRouter as Router,
+} from 'react-router-dom'
+import { withRouter } from 'react-router'
+
 import '../../assets/css/layout.css'
 import Header from '../../components/Header'
-import Content from '../../components/Content'
+import PublicLayout from './PublicLayout'
 import { getCharacters } from '../../actions/marvelAPI';
 
 class Layout extends React.Component {
   state = {
     searchText: '',
-    offset: 0,
     heroList: [],
     isLoading: true,
-  }
-
-  componentDidMount() {
-    this.loadCharacters(this.state.offset)
+    offset: 0,
   }
 
   loadCharacters = (offset) => {
     getCharacters(offset, this.state.searchText)
       .then(res => {
-        this.setState({ heroList: res.data.results, isLoading: false })
+        this.setState({ heroList: res.data.results, isLoading: false, offset: offset })
       })
       .catch(err => {
-        this.setState({ heroList: [], isLoading: false })
+        this.setState({ heroList: [], isLoading: false, offset: offset })
         console.log(err)
       })
   }
 
   handleClick = (offset) => {
-    this.setState({ isLoading: true });
+    this.setState({ isLoading: true, offset: offset });
     this.loadCharacters(offset)
-    this.setState({ offset: offset });
   }
 
   handleChangeFilter = (e) => {
@@ -38,14 +38,16 @@ class Layout extends React.Component {
   }
 
   handleKeyPress = (e) => {
+    const offset = this.props.match.params.offset
     if (e.key === 'Enter'){
+      this.props.history.push(`/pages/0`)
       e.preventDefault()
       this.setState({ 
         isLoading: true,
         searchText: e.target.value,
         offset: 0
       });
-      getCharacters(this.state.offset, e.target.value)
+      getCharacters(offset, e.target.value)
         .then(res => {
           this.setState({ heroList: res.data.results, isLoading: false })
         })
@@ -60,24 +62,27 @@ class Layout extends React.Component {
     const {
       isLoading,
       heroList,
-      offset,
+      offset
     } = this.state
     return (
-      <div>
-        <Header 
-          handleChangeFilter={this.handleChangeFilter}
-          handleKeyPress={this.handleKeyPress}
-        />
-        <Content 
-          offset={offset}
-          isLoading={isLoading}
-          heroList={heroList}
-          handleClick={this.handleClick}
-        />
-        <footer className='footer' >Data provided by Marvel. © 2019 MARVEL</footer>
-      </div>
+      <Router>
+        <div>
+          <Header 
+            handleChangeFilter={this.handleChangeFilter}
+            handleKeyPress={this.handleKeyPress}
+          />
+          <PublicLayout 
+            offset={offset}
+            isLoading={isLoading}
+            heroList={heroList}
+            handleClick={this.handleClick}
+            loadCharacters={this.loadCharacters}
+          />
+          <footer className='footer' >Data provided by Marvel. © 2019 MARVEL</footer>
+        </div>
+      </Router>
     )
   }
 }
 
-export default Layout
+export default withRouter(Layout)

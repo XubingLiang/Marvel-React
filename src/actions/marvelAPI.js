@@ -18,7 +18,7 @@ const getSecretParams = () => {
 
 export const getCharacters = (offset = 0, searchText = '') => {
   let params = getSecretParams()
-  let URI = `/characters?offset=${offset * 20}&apikey=${key.publicKey}&${params}`
+  let URI = `/characters?offset=${offset * 20}&apikey=${key.publicKey}&${params}&limit=20`
   if (searchText) {
     URI = `${URI}&nameStartsWith=${searchText}`
   }
@@ -28,5 +28,11 @@ export const getCharacters = (offset = 0, searchText = '') => {
 export const getCharacterDetail = (heroID) => {
   let params = getSecretParams()
   let URI = `/characters/${heroID}?apikey=${key.publicKey}&${params}`
+  return api.get(URI).then(res => res.data)
+}
+
+export const getCharacterComics = (heroID) => {
+  let params = getSecretParams()
+  let URI = `/characters/${heroID}/comics?apikey=${key.publicKey}&${params}`
   return api.get(URI).then(res => res.data)
 }
