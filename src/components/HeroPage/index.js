@@ -8,9 +8,9 @@ import Typography from '@material-ui/core/Typography'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import Badge from 'react-bootstrap/Badge'
 
-import { getCharacterDetail, getCharacterComics } from '../../actions/marvelAPI';
+import { getCharacterDetail, getCharacterItems } from '../../actions/marvelAPI';
 import HeroDescription from './HeroDescription';
-import HeroComicsDetail from './HeroComicsDetail';
+import HeroItemsDetail from './HeroItemsDetail';
 import loading from '../../assets/images/loading.svg';
 import '../../assets/css/home.css'
 
@@ -39,6 +39,8 @@ class HeroPage extends React.Component {
   state = {
     heroInfo: null,
     heroComics: [],
+    heroSeries: [],
+    heroStories: [],
     isLoading: true,
   }
 
@@ -50,37 +52,50 @@ class HeroPage extends React.Component {
   loadCharacterDetail = (heroID) =>{
     Promise.all([
       getCharacterDetail(heroID),
-      getCharacterComics(heroID),
+      getCharacterItems(heroID, 'comics'),
+      getCharacterItems(heroID, 'series'),
+      getCharacterItems(heroID, 'stories'),
     ])
     .then(values => {
       this.setState(prevState => {
-        const [heroDetail, comics] = values
+        const [heroDetail, comics, series, stories] = values
         return {
           heroInfo: heroDetail.data.results[0],
           heroComics: comics.data.results,
+          heroSeries: series.data.results,
+          heroStories: stories.data.results,
           isLoading: false,
         }
       })
+      console.log(this.state.heroSeries)
     })
   }
 
   render () {
     const { classes } = this.props
-    const { heroInfo, heroComics, isLoading } = this.state
+    const { heroInfo, heroComics, isLoading, heroSeries, heroStories } = this.state
     return (
       <div className='hero-page'>
       { isLoading ? <img src={loading} alt={'Loading...'} className='loading'/> :
         (<div>
           <HeroDescription heroInfo={heroInfo} />
           <div className={classes.root}>
-          <ExpansionPanel>
-            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography className={classes.heading}>Comics</Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-              <HeroComicsDetail heroComics={heroComics}/>
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
+            <ExpansionPanel>
+              <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography className={classes.heading}>Comics</Typography>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails>
+                <HeroItemsDetail heroItems={heroComics}/>
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
+            <ExpansionPanel>
+              <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography className={classes.heading}>Series</Typography>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails>
+                <HeroItemsDetail heroItems={heroSeries}/>
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
             <ExpansionPanel>
               <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                 <Typography className={classes.heading}>Other Information</Typography>

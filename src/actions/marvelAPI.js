@@ -31,8 +31,8 @@ export const getCharacterDetail = (heroID) => {
   return api.get(URI).then(res => res.data)
 }
 
-export const getCharacterComics = (heroID) => {
+export const getCharacterItems = (heroID, type) => {
   let params = getSecretParams()
-  let URI = `/characters/${heroID}/comics?apikey=${key.publicKey}&${params}`
+  let URI = `/characters/${heroID}/${type}?apikey=${key.publicKey}&${params}`
   return api.get(URI).then(res => res.data)
 }

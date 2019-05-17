@@ -48,7 +48,8 @@
 }
 
 .header a {
-  color: #CC4224;
+  color: black;
+  opacity: 0.7;
 }
 
 .header a:link {
