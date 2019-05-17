@@ -29,18 +29,18 @@ const HeroDescription = ({ heroInfo }) => {
           </p>
           <Container>
             <Row>
-              <Col>
-                <a className='link' href={getTargetUrl(heroInfo.urls, 'detail')} rel='noopener noreferrer' target='_blank'>
+              <Col className='link'>
+                <a href={getTargetUrl(heroInfo.urls, 'detail')} rel='noopener noreferrer' target='_blank'>
                     More Detail
                 </a>
               </Col>
-              <Col>
-                <a className='link' href={getTargetUrl(heroInfo.urls, 'wiki')} rel='noopener noreferrer' target='_blank'>
+              <Col className='link'>
+                <a href={getTargetUrl(heroInfo.urls, 'wiki')} rel='noopener noreferrer' target='_blank'>
                     Marvel Wiki
                 </a>
               </Col>
-              <Col>
-                <a className='link' href={getTargetUrl(heroInfo.urls, 'comiclink')} rel='noopener noreferrer' target='_blank'>
+              <Col className='link'>
+                <a href={getTargetUrl(heroInfo.urls, 'comiclink')} rel='noopener noreferrer' target='_blank'>
                     More Comics
                 </a>
               </Col>

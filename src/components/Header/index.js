@@ -11,6 +11,7 @@ import { withStyles } from '@material-ui/core/styles'
 import SearchIcon from '@material-ui/icons/Search'
 
 import logo from '../../assets/images/logo.svg'
+import '../../assets/css/home.css'
 
 const styles = theme => ({
   root: {
@@ -80,7 +81,7 @@ function SearchAppBar (props) {
         <Toolbar>
           <a href='/'><img className={classes.logo} src={logo} height={50} alt={'Marvel Heros'} /></a>
           <Typography className={classes.title} variant='h6' color='inherit' noWrap style={{marginLeft: '5px'}}>
-              Marvel Heros
+            <div className='header'><a href='/'>Marvel Heros</a></div>
           </Typography>
           <div className={classes.grow} />
           <div className={classes.search}>

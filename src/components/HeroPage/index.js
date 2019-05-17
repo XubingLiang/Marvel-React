@@ -88,15 +88,15 @@ class HeroPage extends React.Component {
               <ExpansionPanelDetails>
                 <Typography>
                   <Badge pill variant='success'>
-                    {`Commics ${111}`}
+                    {`Commics ${heroInfo.comics.available}`}
                   </Badge>
                   <br />
                   <Badge pill variant='success'>
-                    {`Series ${111}`}
+                    {`Series ${heroInfo.series.available}`}
                   </Badge>
                   <br />
                   <Badge pill variant='success'>
-                    {`Stories ${111}`}
+                    {`Stories ${heroInfo.stories.available}`}
                   </Badge>
                 </Typography>
               </ExpansionPanelDetails>
