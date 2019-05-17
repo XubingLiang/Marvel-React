@@ -40,7 +40,6 @@ class HeroPage extends React.Component {
     heroInfo: null,
     heroComics: [],
     heroSeries: [],
-    heroStories: [],
     isLoading: true,
   }
 
@@ -54,16 +53,14 @@ class HeroPage extends React.Component {
       getCharacterDetail(heroID),
       getCharacterItems(heroID, 'comics'),
       getCharacterItems(heroID, 'series'),
-      getCharacterItems(heroID, 'stories'),
     ])
     .then(values => {
       this.setState(prevState => {
-        const [heroDetail, comics, series, stories] = values
+        const [heroDetail, comics, series] = values
         return {
           heroInfo: heroDetail.data.results[0],
           heroComics: comics.data.results,
           heroSeries: series.data.results,
-          heroStories: stories.data.results,
           isLoading: false,
         }
       })
@@ -73,7 +70,7 @@ class HeroPage extends React.Component {
 
   render () {
     const { classes } = this.props
-    const { heroInfo, heroComics, isLoading, heroSeries, heroStories } = this.state
+    const { heroInfo, heroComics, isLoading, heroSeries } = this.state
     return (
       <div className='hero-page'>
       { isLoading ? <img src={loading} alt={'Loading...'} className='loading'/> :
