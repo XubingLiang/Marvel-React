@@ -10,6 +10,9 @@ $ npm install
 $ npm start
 ```
 
+### hosted in heroku
+https://marvel-react-beem.herokuapp.com/
+
 
 
 
