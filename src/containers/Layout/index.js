@@ -18,6 +18,7 @@ class Layout extends React.Component {
   }
 
   loadCharacters = (offset) => {
+    this.setState({ isLoading: true })
     getCharacters(offset, this.state.searchText)
       .then(res => {
         this.setState({ heroList: res.data.results, isLoading: false, offset: offset })

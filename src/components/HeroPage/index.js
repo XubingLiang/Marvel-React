@@ -64,7 +64,6 @@ class HeroPage extends React.Component {
           isLoading: false,
         }
       })
-      console.log(this.state.heroSeries)
     })
   }
 

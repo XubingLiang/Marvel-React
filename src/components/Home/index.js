@@ -24,7 +24,17 @@ class Home extends React.Component {
   };
 
   componentDidMount() {
-    this.props.loadCharacters(this.props.match.params.offset)
+    const { match, loadCharacters } = this.props
+    const { offset } = match.params
+    loadCharacters(offset)
+  }
+
+  componentWillReceiveProps(nextProps){
+    const { match, loadCharacters } = this.props
+    const { offset } = match.params
+    if (offset !== nextProps.match.params.offset){
+      loadCharacters(nextProps.match.params.offset)
+    }
   }
 
 

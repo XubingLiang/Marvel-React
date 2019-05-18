@@ -9,7 +9,7 @@ const renderItems = (heroItems) => {
       (<div key={item.id}>
         <Divider />
         <Media as='li' style={{height: '140px'}}>
-          <a className='link' href={item.urls ? item.urls[0].url : ''} rel='noopener noreferrer' target='_blank'>
+          <a className='link' href={item.urls ? item.urls[0].url : 'https://www.marvel.com/explore'} rel='noopener noreferrer' target='_blank'>
             <img
               width={100}
               height={130}
@@ -19,8 +19,8 @@ const renderItems = (heroItems) => {
             />
           </a>
           <Media.Body style={{height: '140px'}}>
-            <h5 className='link'>
-              <a href={item.urls ? item.urls[0].url : ''} rel='noopener noreferrer' target='_blank'>
+            <h5 className='link' style={{height: '25%'}}>
+              <a href={item.urls ? item.urls[0].url : 'https://www.marvel.com/explore'} rel='noopener noreferrer' target='_blank'>
                 {item.title}
               </a>
             </h5>
